@@ -58,9 +58,21 @@ def hasDigit(s: str):
   '''
   return bool(set(s).intersection(string.digits))
 
-def hasRepeating(s):
-  pass
-
+def hasRepeating(s, runLength=3):
+  if len(s) == 0:
+    return False
+  char = s[0]
+  count = 1
+  for ch in s[1:]:
+    if ch == char:
+      count += 1
+    else:
+      char = ch
+      count = 1
+    if count == runLength:
+      return True
+  return False
+  
 class Solution:
   def strongPasswordChecker(self, password: str) -> int:
     print(hasLower(password))
