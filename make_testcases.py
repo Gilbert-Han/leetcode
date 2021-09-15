@@ -20,9 +20,10 @@ def testdata(trials=10, fns=None):
     return [[fn() for fn in fns] for _ in range(trials)]
 
 
-def randstrings(trials=10, characters=string.ascii_lowercase):
+def randstrings(trials=10, lengthfn=lambda: randrange(100), characters=string.ascii_lowercase):
     return testdata(trials=trials,
                     fns=[lambda: randlist(rng=lambda: choice(characters),
+                                          lengthfn=lengthfn,
                                           postfns=[lambda chrs: ''.join(chrs),
                                                    lambda s: '"' + s + '"'])],
                     )
@@ -44,7 +45,7 @@ if __name__ == '__main__':
     datas = testdata(fns=[lambda: randlist(rng=lambda: randrange(1, 100),
                                            lengthfn=lambda: randrange(1, 20),
                                            postfns=[])])
-    datas = randnums()
+    datas = randstrings(trials=30, characters='ab')
     for data in datas:
         for row in data:
             print(row)
